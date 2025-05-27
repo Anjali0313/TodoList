@@ -1,6 +1,7 @@
 import {useReducer} from 'react';
 import AddTask from './AddTask.jsx';
 import TaskList from './TaskList.Jsx';
+import { TasksContext,TasksDispatchContext } from './TasksContext.jsx';
 export default function TaskApp() {
   const [tasks, dispatch] = useReducer(
     tasksReducer,
@@ -31,6 +32,8 @@ export default function TaskApp() {
 
   return (
     <>
+    <TasksContext.Provider  value={tasks}>
+      <TasksDispatchContext.Provider value={dispatch}>
       <h1>Day off in Kyoto</h1>
       <AddTask
         onAddTask={handleAddTask}
@@ -40,6 +43,8 @@ export default function TaskApp() {
         onChangeTask={handleChangeTask}
         onDeleteTask={handleDeleteTask}
       />
+      </TasksDispatchContext.Provider>
+      </TasksContext.Provider>
     </>
   );
 }
